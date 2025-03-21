@@ -40,15 +40,16 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write  # Permissão para escrita no repositório
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
       - name: Update Deployment YAML
         run: |
-          sed -i "s|washington1995luiz/stress-test-tomcat:.*|washington1995luiz/stress-test-tomcat:${{ env.IMAGE_VERSION }}|g" k8s/application.yaml
+          sed -i "s|washington1995luiz/stress-test-tomcat:.*|washington1995luiz/stress-test-tomcat:${{ vars.IMAGE_VERSION }}|g" k8s/application.yaml
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "Update image tag to ${{ vars.IMAGE_VERSION }}"
           file_pattern: k8s/application.yaml
+          branch: master  # Garante que o commit será feito na branch correta
