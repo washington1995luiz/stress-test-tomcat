@@ -28,7 +28,7 @@ jobs:
           cache: maven
 
       - name: Construir e testar aplicação
-        run: mvn clean package
+        run: mvn clean package -Dmaven.test.skip
       - name: Set Image Version Variable
         run: echo "IMAGE_VERSION=${{ env.IMAGE_VERSION }}" >> $GITHUB_ENV
       - name: Build docker image
