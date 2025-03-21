@@ -30,11 +30,11 @@ jobs:
       - name: Build and Test Application
         run: mvn clean package -Dmaven.test.skip
       - name: Set Image Version Variable
-        run: echo "IMAGE_VERSION=${{ env.IMAGE_VERSION }}" >> $GITHUB_ENV
+        run: echo "IMAGE_VERSION=$IMAGE_VERSION" >> $GITHUB_ENV
       - name: Build docker image
-        run: docker build -t washington1995luiz/stress-test-tomcat:${{ env.IMAGE_VERSION }} .
+        run: docker build -t washington1995luiz/stress-test-tomcat:$IMAGE_VERSION .
       - name: Push image docker
-        run: docker push washington1995luiz/stress-test-tomcat:${{ env.IMAGE_VERSION }}
+        run: docker push washington1995luiz/stress-test-tomcat:$env.IMAGE_VERSION
 
   update-argocd:
     needs: build
