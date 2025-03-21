@@ -3,7 +3,7 @@ name: CI - Build and Update Argo CD
 on:
   push:
     branches:
-      - develop
+      - master
 
 jobs:
   build:
