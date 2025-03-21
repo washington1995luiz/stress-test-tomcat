@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: stress-tomcat-service
-  namespace: stress-application # Match the namespace of the Deployment
+  namespace: default # Match the namespace of the Deployment
 spec:
   selector:
     app: stress-tomcat-app # Match the labels of the Pods from the Deployment

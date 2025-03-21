@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: stress-tomcat-deployment
-  namespace: stress-application
+  namespace: default
 spec:
   replicas: 3
   selector:
