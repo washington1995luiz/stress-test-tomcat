@@ -27,7 +27,7 @@ jobs:
           java-version: '23'
           cache: maven
 
-      - name: Construir e testar aplicação
+      - name: Build and Test Application
         run: mvn clean package -Dmaven.test.skip
       - name: Set Image Version Variable
         run: echo "IMAGE_VERSION=${{ env.IMAGE_VERSION }}" >> $GITHUB_ENV
