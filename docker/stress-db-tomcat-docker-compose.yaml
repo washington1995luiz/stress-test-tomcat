@@ -1,0 +1,15 @@
+services:
+  stress_test_tomcat_postgres_db:
+    image: postgres:17.4-alpine
+    container_name: stress_test_postgres_db_tomcat
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 12345
+      POSTGRES_USER: root
+      POSTGRES_DB: stress
+    ports:
+      - "54390:5432"
+    volumes:
+      - stress_test_postgres_db_tomcat_data:/var/lib/postgresql/data
+volumes:
+  stress_test_postgres_db_tomcat_data:

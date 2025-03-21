@@ -1,0 +1,8 @@
+services:
+  stress-test-tomcat:
+    build:
+      context: ..
+    image: washington1995luiz/stress-test-tomcat:0.0.8
+    ports:
+      - "8000:80"
+

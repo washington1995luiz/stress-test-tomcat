@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: stress-test-postgres-db-tomcat
+spec:
+  type: NodePort   # 🔹 Adicione esta linha para expor a porta no nó
+  selector:
+    app: stress-test-postgres-db-tomcat
+  ports:
+    - protocol: TCP
+      port: 5432       # Porta interna do serviço
+      targetPort: 5432 # Porta do container PostgreSQL
+      nodePort: 30432  # Porta exposta no nó (entre 30000-32767)
