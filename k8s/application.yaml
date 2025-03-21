@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stress-tomcat-deployment
+  namespace: stress-application
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: stress-tomcat-app
+  template:
+    metadata:
+      labels:
+        app: stress-tomcat-app
+    spec:
+      containers:
+        - name: stress-tomcat-app-container
+          image: washington1995luiz/stress-test-tomcat:0.0.8 # Use a tag, not latest
+          ports:
+            - containerPort: 80 # Application listens on port 80
