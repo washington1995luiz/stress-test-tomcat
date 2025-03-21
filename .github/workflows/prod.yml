@@ -30,11 +30,11 @@ jobs:
       - name: Build and Test Application
         run: mvn clean package -Dmaven.test.skip
       - name: Set Image Version Variable
-        run: echo "IMAGE_VERSION=$IMAGE_VERSION" >> $GITHUB_ENV
+        run: echo "IMAGE_VERSION=${{ vars.IMAGE_VERSION }}" >> $GITHUB_ENV
       - name: Build docker image
-        run: docker build -t washington1995luiz/stress-test-tomcat:$IMAGE_VERSION .
+        run: docker build -t washington1995luiz/stress-test-tomcat:${{ vars.IMAGE_VERSION }} .
       - name: Push image docker
-        run: docker push washington1995luiz/stress-test-tomcat:$env.IMAGE_VERSION
+        run: docker push washington1995luiz/stress-test-tomcat:${{ vars.IMAGE_VERSION }}
 
   update-argocd:
     needs: build
@@ -50,5 +50,5 @@ jobs:
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "Update image tag to ${{ env.IMAGE_VERSION }}"
+          commit_message: "Update image tag to ${{ vars.IMAGE_VERSION }}"
           file_pattern: k8s/application.yaml
