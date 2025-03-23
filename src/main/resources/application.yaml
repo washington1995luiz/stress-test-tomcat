@@ -2,7 +2,8 @@ spring:
   application:
     name: stress-test-tomcat
   datasource:
-    url: jdbc:postgresql://stress-test-postgres-db-tomcat:5432/stress
+#    url: jdbc:postgresql://stress-test-postgres-db-tomcat:5432/stress
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:54320}/${DB_NAME:stress}
 #    url: jdbc:postgresql://localhost:54320/stress
     username: root
     password: 12345
@@ -15,5 +16,4 @@ spring:
     locations: classpath:db/migration
 
 server:
-  port: 80
-#  port: 8001
+  port: ${SERVER_PORT:8001}
