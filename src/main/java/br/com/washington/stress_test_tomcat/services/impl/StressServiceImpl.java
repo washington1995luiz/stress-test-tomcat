@@ -15,6 +15,7 @@ public class StressServiceImpl implements StressService {
 
     @Override
     public void create(Stress stress) {
+        stress.create();
         repository.save(stress);
     }
 }

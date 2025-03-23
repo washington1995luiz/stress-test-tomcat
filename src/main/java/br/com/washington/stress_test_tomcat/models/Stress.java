@@ -20,4 +20,8 @@ public class Stress {
 
     @Column(nullable = false, length = 100)
     private String name;
+
+    public Stress create(){
+        return this;
+    }
 }
