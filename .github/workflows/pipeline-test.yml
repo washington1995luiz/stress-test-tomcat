@@ -69,6 +69,8 @@ jobs:
           mvn spring-boot:build-image \
           -Dspring-boot.build-image.imageName=${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{ steps.random_tag.outputs.TAG }} \
           -Dspring-boot.build-image.publish=true \
+          -Dspring-boot.build-image.docker.publishRegistry.username=${{ secrets.DOCKER_USERNAME }} \
+          -Dspring-boot.build-image.docker.publishRegistry.password=${{ secrets.DOCKER_PASSWORD }} \
           -DskipTests
 
       - name: Argocd - Update Deployment Configuration
