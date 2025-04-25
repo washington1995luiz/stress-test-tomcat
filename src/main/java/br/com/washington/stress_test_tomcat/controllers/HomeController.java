@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping
     public String greeting(){
-        return "Welcome to my application!\nNew Version...\n\n\nGood Bye!";
+        return "Updated image without docker";
     }
 }

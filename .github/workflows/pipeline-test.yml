@@ -19,20 +19,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.6.0
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.10.0
-
-      - name: Build Docker image
-        id: docker_build
-        uses: docker/build-push-action@v6.15.0
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
-          context: .
-          file: ./Dockerfile
-#          platforms: linux/arm64
-          push: false
+          java-version: '23'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build image without Docker
+        run: mvn spring-boot:build-image -DskipTests
 
   deploy:
     name: "[DEV] - Deploy"
@@ -47,16 +42,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '23'
+          distribution: 'temurin'
+          cache: 'maven'
+
       - name: Set Git Config
         run: |
           git config --global user.email "$(git --no-pager show -s --format='%ae')"
           git config --global user.name "$(git --no-pager show -s --format='%an')"
-
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3.6.0
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.10.0
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3.4.0
@@ -70,13 +66,10 @@ jobs:
 
       - name: Build and Push Docker image
         id: docker_build
-        uses: docker/build-push-action@v6.15.0
-        with:
-          context: .
-          file: ./Dockerfile
-#          platforms: linux/arm64
-          push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{ steps.random_tag.outputs.TAG }}
+        run: |
+          mvn spring-boot:build-image \
+          -Dspring-boot.build-image.imageName=${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{ steps.random_tag.outputs.TAG }} \
+          -DskipTests
 
       - name: Argocd - Update Deployment Configuration
         run: |
