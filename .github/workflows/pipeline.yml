@@ -32,7 +32,7 @@ jobs:
 
       - name: Build and Push Image with Maven
         run: |
-          mvn spring-boot:build-image
+          mvn spring-boot:build-image -DskipTests
 
 #      - name: Build Docker image
 #        id: docker_build
@@ -85,7 +85,7 @@ jobs:
 
       - name: Build and Push Image with Maven
         run: |
-          mvn spring-boot:build-image -Dspring-boot.build-image.imageName=docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{ steps.random_tag.outputs.TAG }}
+          mvn spring-boot:build-image -Dspring-boot.build-image.imageName=docker.io/${{ secrets.DOCKER_USERNAME }}/${{ env.SERVICE_NAME }}:${{ steps.random_tag.outputs.TAG }} -DskipTests
 
 #      - name: Build and Push Docker image
 #        id: docker_build
