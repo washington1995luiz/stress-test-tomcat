@@ -4,8 +4,6 @@ import br.com.washington.stress_test_tomcat.events.domain.custom.UserCreatedEven
 import br.com.washington.stress_test_tomcat.events.domain.custom.UserDisabledEvent;
 import br.com.washington.stress_test_tomcat.events.domain.custom.UserEnabledEvent;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.AbstractAggregateRoot;
@@ -26,7 +24,7 @@ public class User extends AbstractAggregateRoot<User> {
     private String password;
     private Boolean enabled;
 
-    public User(String name, String email, String password){
+    public User(String name, String email, String password) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -34,12 +32,12 @@ public class User extends AbstractAggregateRoot<User> {
         registerEvent(new UserCreatedEvent(this, "User Created"));
     }
 
-    public void disableAccount(){
+    public void disableAccount() {
         this.enabled = true;
         registerEvent(new UserDisabledEvent(this, "User Disabled"));
     }
 
-    public void enableAccount(){
+    public void enableAccount() {
         this.enabled = false;
         registerEvent(new UserEnabledEvent(this, "User Enabled"));
     }
