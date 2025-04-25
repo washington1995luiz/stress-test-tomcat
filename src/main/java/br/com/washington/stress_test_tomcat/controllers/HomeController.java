@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping
     public String greeting(){
-        return "Welcome to my application!\nNew Version...";
+        return "Welcome to my application!\nNew Version...\n\n\nGood Bye!";
     }
 }
